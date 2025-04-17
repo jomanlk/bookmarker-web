@@ -1,0 +1,6 @@
+- You are creating the web frontend for a bookmarking API. The bookmarking API allows you to create and list bookmarks.
+- The frontend application will be made using vuejs and tailwindcss
+- All configuration values should be stored in an .env file. Any time a key and value is added to the .env file it should be added to an .env.example file as only the key
+- The API host for the bookmarker service is available via the API_HOST env value
+- The bookmark API allows me to store bookmarks. A bookmark consists of an id (auto generated), title, description, thumbnail, URL. Meta data in the form of created_at and updated_at are also there
+- This web application will allow you to create, search and manage my bookmarks
