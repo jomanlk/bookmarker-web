@@ -20,27 +20,43 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <h1>My Bookmarks</h1>
+  <div class="min-h-screen p-8">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-4xl font-bold text-gray-900 mb-8">My Bookmarks</h1>
 
-    <div v-if="loading">Loading...</div>
+      <div v-if="loading" class="flex justify-center items-center h-64">
+        <div
+          class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"
+        ></div>
+      </div>
 
-    <div v-else-if="error">
-      {{ error }}
-    </div>
+      <div
+        v-else-if="error"
+        class="text-center p-8 bg-red-50 text-red-600 rounded-lg"
+      >
+        {{ error }}
+      </div>
 
-    <div v-else-if="bookmarks.length === 0">No bookmarks found</div>
+      <div
+        v-else-if="bookmarks.length === 0"
+        class="text-center p-8 bg-gray-50 text-gray-500 rounded-lg"
+      >
+        No bookmarks found
+      </div>
 
-    <div v-else>
-      <div v-for="bookmark in bookmarks" :key="bookmark.id">
-        <div>
-          <h2>
-            <a :href="bookmark.url" target="_blank">
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-for="bookmark in bookmarks" :key="bookmark.id" class="card p-6">
+          <h2 class="text-xl font-semibold mb-2">
+            <a
+              :href="bookmark.url"
+              target="_blank"
+              class="text-primary-600 hover:text-primary-700 transition-colors duration-200"
+            >
               {{ bookmark.title }}
             </a>
           </h2>
-          <p>{{ bookmark.description }}</p>
-          <div>
+          <p class="text-gray-600 mb-4">{{ bookmark.description }}</p>
+          <div class="flex justify-between items-center text-sm text-gray-500">
             <span
               >Created:
               {{ new Date(bookmark.created_at).toLocaleDateString() }}</span
