@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import bookmarkService from "../services/bookmarkService";
+import { format } from "timeago.js";
 
 const bookmarks = ref([]);
 const loading = ref(true);
@@ -45,7 +46,11 @@ onMounted(async () => {
       </div>
 
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="bookmark in bookmarks" :key="bookmark.id" class="card p-6">
+        <div
+          v-for="bookmark in bookmarks"
+          :key="bookmark.id"
+          class="card p-6 border rounded-lg border-l-4 border-primary-200 hover:border-primary-400 transition-colors duration-200"
+        >
           <h2 class="text-xl font-semibold mb-2">
             <a
               :href="bookmark.url"
@@ -56,15 +61,8 @@ onMounted(async () => {
             </a>
           </h2>
           <p class="text-gray-600 mb-4">{{ bookmark.description }}</p>
-          <div class="flex justify-between items-center text-sm text-gray-500">
-            <span
-              >Created:
-              {{ new Date(bookmark.created_at).toLocaleDateString() }}</span
-            >
-            <span
-              >Updated:
-              {{ new Date(bookmark.updated_at).toLocaleDateString() }}</span
-            >
+          <div class="text-sm text-gray-500">
+            Added {{ format(bookmark.created_at) }}
           </div>
         </div>
       </div>
