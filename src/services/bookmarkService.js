@@ -20,7 +20,7 @@ const bookmarkService = {
   },
 
   async updateBookmark(bookmark) {
-    const response = await axios.put(
+    const response = await axios.patch(
       `${API_HOST}/bookmarks/${bookmark.id}`,
       bookmark
     );
