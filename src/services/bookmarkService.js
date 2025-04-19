@@ -19,6 +19,18 @@ const bookmarkService = {
     return response.data;
   },
 
+  async updateBookmark(bookmark) {
+    const response = await axios.put(
+      `${API_HOST}/bookmarks/${bookmark.id}`,
+      bookmark
+    );
+    return response.data;
+  },
+
+  async getBookmark(id) {
+    const response = await axios.get(`${API_HOST}/bookmarks/${id}`);
+    return response.data.bookmark;
+  },
   // Additional methods for updating and deleting bookmarks can be added here
 };
 

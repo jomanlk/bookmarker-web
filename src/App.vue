@@ -3,5 +3,5 @@ import BookmarkList from "./components/BookmarkList.vue";
 </script>
 
 <template>
-  <BookmarkList />
+  <router-view />
 </template>
