@@ -85,8 +85,26 @@ onMounted(async () => {
             </a>
           </h2>
           <p class="text-gray-600 mb-4">{{ bookmark.description }}</p>
+          <div
+            v-if="bookmark.tags && bookmark.tags.length > 0"
+            class="flex flex-wrap gap-2 mb-4"
+          >
+            <span
+              v-for="(tag, index) in bookmark.tags.slice(0, 2)"
+              :key="tag.id"
+              class="px-2 py-1 bg-gray-100 text-gray-600 text-sm rounded-full"
+            >
+              {{ tag.name }}
+            </span>
+            <span
+              v-if="bookmark.tags.length > 2"
+              class="py-1 text-gray-400 text-sm"
+            >
+              and {{ bookmark.tags.length - 2 }} more
+            </span>
+          </div>
           <div class="text-sm text-gray-500">
-            Added {{ format(bookmark.created_at) }}
+            Added {{ format(bookmark.created_at * 1000) }}
           </div>
           <router-link
             :to="`/bookmarks/${bookmark.id}/edit`"
