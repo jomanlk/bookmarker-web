@@ -25,7 +25,29 @@ onMounted(async () => {
 <template>
   <div class="min-h-screen p-8">
     <div class="max-w-7xl mx-auto">
-      <h1 class="text-4xl font-bold text-gray-900 mb-8">My Bookmarks</h1>
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-900">My Bookmarks</h1>
+        <router-link
+          to="/bookmarks/add"
+          class="btn btn-primary flex items-center space-x-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            />
+          </svg>
+          <span>Add Bookmark</span>
+        </router-link>
+      </div>
 
       <div v-if="loading" class="flex justify-center items-center h-64">
         <div

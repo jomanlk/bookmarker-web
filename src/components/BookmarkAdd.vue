@@ -1,32 +1,28 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import bookmarkService from "../services/bookmarkService";
 
-const route = useRoute();
 const router = useRouter();
-const bookmark = ref(null);
-const error = ref(null);
-const loading = ref(true);
-
-onMounted(async () => {
-  try {
-    const response = await bookmarkService.getBookmark(route.params.id);
-    bookmark.value = response;
-  } catch (err) {
-    error.value = "Failed to load bookmark";
-    console.error(err);
-  } finally {
-    loading.value = false;
-  }
+const newBookmark = ref({
+  title: "",
+  url: "",
+  description: "",
+  thumbnail: "",
 });
+const error = ref(null);
 
-const handleSave = async () => {
+const handleCreate = async () => {
+  if (!newBookmark.value.url) {
+    error.value = "URL is required";
+    return;
+  }
+
   try {
-    await bookmarkService.updateBookmark(bookmark.value);
+    await bookmarkService.createBookmark(newBookmark.value);
     router.push("/");
   } catch (err) {
-    error.value = "Failed to update bookmark";
+    error.value = "Failed to create bookmark";
     console.error(err);
   }
 };
@@ -37,7 +33,7 @@ const handleSave = async () => {
     <div class="max-w-2xl mx-auto">
       <div class="bg-white rounded-lg shadow-sm p-8">
         <div class="flex items-center justify-between mb-8">
-          <h1 class="text-2xl font-semibold text-gray-900">Edit Bookmark</h1>
+          <h1 class="text-2xl font-semibold text-gray-900">Add New Bookmark</h1>
           <button
             @click="router.push('/')"
             class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200"
@@ -59,43 +55,31 @@ const handleSave = async () => {
           </button>
         </div>
 
-        <div v-if="loading" class="flex justify-center items-center h-64">
-          <div
-            class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"
-          ></div>
-        </div>
-
         <div
-          v-else-if="error"
+          v-if="error"
           class="p-4 bg-red-50 text-red-600 rounded-lg mb-6 border-l-4 border-red-500"
         >
           {{ error }}
         </div>
 
-        <div
-          v-else-if="!bookmark"
-          class="text-center p-8 bg-gray-50 text-gray-500 rounded-lg"
-        >
-          Bookmark not found
-        </div>
-
-        <div v-else class="space-y-8">
+        <div class="space-y-8">
           <div class="space-y-2">
-            <label class="block text-sm font-medium text-gray-700">URL</label>
+            <label class="block text-sm font-medium text-gray-700">URL *</label>
             <input
-              v-model="bookmark.url"
+              v-model="newBookmark.url"
               type="url"
               class="input w-full text-lg py-3 px-4"
-              placeholder="Enter URL"
+              placeholder="Enter URL (required)"
+              required
             />
           </div>
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700">Title</label>
             <input
-              v-model="bookmark.title"
+              v-model="newBookmark.title"
               type="text"
               class="input w-full text-lg py-3 px-4 border-1 border-gray-300 rounded-md"
-              placeholder="Enter title"
+              placeholder="Enter title (optional)"
             />
           </div>
 
@@ -104,11 +88,22 @@ const handleSave = async () => {
               >Description</label
             >
             <textarea
-              v-model="bookmark.description"
+              v-model="newBookmark.description"
               class="input w-full text-lg py-3 px-4 border-1 border-gray-300 rounded-md"
               rows="4"
-              placeholder="Enter description"
+              placeholder="Enter description (optional)"
             ></textarea>
+          </div>
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700"
+              >Thumbnail URL</label
+            >
+            <input
+              v-model="newBookmark.thumbnail"
+              type="url"
+              class="input w-full text-lg py-3 px-4"
+              placeholder="Enter thumbnail URL (optional)"
+            />
           </div>
           <div class="flex justify-end space-x-3 pt-6 border-t">
             <button
@@ -117,8 +112,8 @@ const handleSave = async () => {
             >
               Cancel
             </button>
-            <button @click="handleSave" class="btn btn-primary px-5 py-2.5">
-              Save Changes
+            <button @click="handleCreate" class="btn btn-primary px-5 py-2.5">
+              Create Bookmark
             </button>
           </div>
         </div>
