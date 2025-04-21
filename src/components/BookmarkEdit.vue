@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import bookmarkService from "../services/bookmarkService";
+import TagInput from "./TagInput.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -23,7 +24,11 @@ onMounted(async () => {
 
 const handleSave = async () => {
   try {
-    await bookmarkService.updateBookmark(bookmark.value);
+    const bookmarkToSave = {
+      ...bookmark.value,
+      tags: bookmark.value.tags.map((tag) => tag.name),
+    };
+    await bookmarkService.updateBookmark(bookmarkToSave);
     router.push("/");
   } catch (err) {
     error.value = "Failed to update bookmark";
@@ -110,6 +115,9 @@ const handleSave = async () => {
               placeholder="Enter description"
             ></textarea>
           </div>
+
+          <TagInput v-model="bookmark.tags" />
+
           <div class="flex justify-end space-x-3 pt-6 border-t">
             <button
               @click="router.push('/')"
