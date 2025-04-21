@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
-import BookmarkList from "../components/BookmarkList.vue";
+import HomeView from "../views/HomeView.vue";
 import BookmarkEdit from "../components/BookmarkEdit.vue";
 import BookmarkAdd from "../components/BookmarkAdd.vue";
 
 const routes = [
   {
     path: "/",
-    name: "bookmarks",
-    component: BookmarkList,
+    name: "home",
+    component: HomeView,
   },
   {
     path: "/bookmarks/add",
@@ -19,6 +19,12 @@ const routes = [
     name: "edit-bookmark",
     component: BookmarkEdit,
     props: true,
+  },
+  {
+    path: "/bookmarks/tag",
+    name: "TagBookmarks",
+    component: () => import("../views/TagBookmarks.vue"),
+    props: (route) => ({ tag: route.query.tag }),
   },
 ];
 
