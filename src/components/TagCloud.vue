@@ -19,7 +19,7 @@ onMounted(fetchTags);
 
 <template>
   <div class="bg-white p-4 p ml-0 mt-8 rounded-lg shadow">
-    <h2 class="text-lg font-semibold mb-4">Tags</h2>
+    <h2 class="text-lg font-semibold mb-4">All Tags</h2>
     <div class="flex flex-wrap gap-2">
       <router-link
         v-for="tag in tags"
