@@ -29,9 +29,9 @@ const emits = defineEmits(["add-bookmark"]);
 </script>
 
 <template>
-  <div class="min-h-screen py-8">
+  <div class="min-h-screen py-4">
     <div class="max-w-7xl mx-auto">
-      <div class="mb-8">
+      <div class="mb-4">
         <h1 class="text-4xl font-bold text-gray-900">{{ title }}</h1>
       </div>
 
