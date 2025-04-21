@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import bookmarkService from "../services/bookmarkService";
+import TagInput from "./TagInput.vue";
 
 const router = useRouter();
 const newBookmark = ref({
@@ -9,6 +10,7 @@ const newBookmark = ref({
   url: "",
   description: "",
   thumbnail: "",
+  tags: [],
 });
 const error = ref(null);
 
@@ -19,7 +21,12 @@ const handleCreate = async () => {
   }
 
   try {
-    await bookmarkService.createBookmark(newBookmark.value);
+    // Transform tag objects into strings for the API
+    const bookmarkToCreate = {
+      ...newBookmark.value,
+      tags: newBookmark.value.tags.map((tag) => tag.name),
+    };
+    await bookmarkService.createBookmark(bookmarkToCreate);
     router.push("/");
   } catch (err) {
     error.value = "Failed to create bookmark";
@@ -94,6 +101,9 @@ const handleCreate = async () => {
               placeholder="Enter description (optional)"
             ></textarea>
           </div>
+
+          <TagInput v-model="newBookmark.tags" />
+
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700"
               >Thumbnail URL</label

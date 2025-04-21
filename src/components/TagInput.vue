@@ -44,8 +44,6 @@ const addTag = () => {
   if (!tagExists) {
     emit("update:modelValue", [...props.modelValue, { name: tagName }]);
     newTag.value = "";
-  } else {
-    alert("This tag already exists");
   }
 };
 
