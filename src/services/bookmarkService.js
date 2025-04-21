@@ -31,6 +31,14 @@ const bookmarkService = {
     const response = await axios.get(`${API_HOST}/bookmarks/${id}`);
     return response.data.bookmark;
   },
+
+  async searchByTag(tag) {
+    const response = await axios.get(
+      `${API_HOST}/search-by-tag?tag=${encodeURIComponent(tag)}`
+    );
+    return response.data.bookmarks;
+  },
+
   // Additional methods for updating and deleting bookmarks can be added here
 };
 
