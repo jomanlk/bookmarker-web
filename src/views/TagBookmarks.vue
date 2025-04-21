@@ -21,8 +21,8 @@ const fetchBookmarksByTag = async () => {
 </script>
 
 <template>
-  <div class="grid grid-cols-12 gap-6">
-    <div class="col-span-8">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+    <div class="md:col-span-8 col-span-1">
       <BookmarkList
         :key="tagName"
         :title="'Bookmarks tagged with ' + tagName"
@@ -30,7 +30,7 @@ const fetchBookmarksByTag = async () => {
         :fetch-bookmarks="fetchBookmarksByTag"
       />
     </div>
-    <div class="col-span-4">
+    <div class="col-span-4 hidden md:block">
       <TagCloud />
     </div>
   </div>
