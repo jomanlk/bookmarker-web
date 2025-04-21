@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import bookmarkService from "../services/bookmarkService";
 import BookmarkList from "../components/BookmarkList.vue";
@@ -15,9 +15,22 @@ watch(
   }
 );
 
-const fetchBookmarksByTag = async () => {
-  return await bookmarkService.searchByTag(tagName.value);
-};
+const bookmarks = ref([]);
+const loading = ref(false);
+
+async function loadBookmarks() {
+  loading.value = true;
+  try {
+    bookmarks.value = await bookmarkService.searchByTag(tagName.value);
+  } catch (e) {
+    bookmarks.value = [];
+  }
+  loading.value = false;
+}
+
+onMounted(loadBookmarks);
+
+watch(tagName, loadBookmarks);
 </script>
 
 <template>
@@ -27,7 +40,8 @@ const fetchBookmarksByTag = async () => {
         :key="tagName"
         :title="'Bookmarks tagged with ' + tagName"
         :show-add-button="false"
-        :fetch-bookmarks="fetchBookmarksByTag"
+        :bookmarks="bookmarks"
+        :loading="loading"
       />
     </div>
     <div class="col-span-4 hidden md:block">

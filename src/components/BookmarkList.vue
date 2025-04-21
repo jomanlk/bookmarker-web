@@ -1,7 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-import bookmarkService from "../services/bookmarkService";
+import { defineProps, defineEmits } from "vue";
 import BookmarkItem from "./BookmarkItem.vue";
 
 const props = defineProps({
@@ -13,28 +11,21 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  fetchBookmarks: {
-    type: Function,
+  bookmarks: {
+    type: Array,
     required: true,
+  },
+  pages: {
+    type: Number,
+    default: 1,
+  },
+  loading: {
+    type: Boolean,
+    default: false,
   },
 });
 
-const router = useRouter();
-const bookmarks = ref([]);
-const loading = ref(true);
-const error = ref(null);
-
-onMounted(async () => {
-  try {
-    const response = await props.fetchBookmarks();
-    bookmarks.value = response;
-  } catch (err) {
-    error.value = "Failed to load bookmarks";
-    console.error(err);
-  } finally {
-    loading.value = false;
-  }
-});
+const emits = defineEmits(["add-bookmark"]);
 </script>
 
 <template>
@@ -48,13 +39,6 @@ onMounted(async () => {
         <div
           class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"
         ></div>
-      </div>
-
-      <div
-        v-else-if="error"
-        class="text-center p-8 bg-red-50 text-red-600 rounded-lg"
-      >
-        {{ error }}
       </div>
 
       <div
