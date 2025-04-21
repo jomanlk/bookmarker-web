@@ -1,7 +1,11 @@
 <script setup>
 import BookmarkList from "./components/BookmarkList.vue";
+import AppHeader from "./components/AppHeader.vue";
 </script>
 
 <template>
-  <router-view />
+  <div class="min-h-screen bg-gray-50">
+    <AppHeader />
+    <router-view />
+  </div>
 </template>
