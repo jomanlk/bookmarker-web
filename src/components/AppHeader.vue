@@ -21,7 +21,9 @@
         </router-link>
 
         <!-- App Name -->
-        <h1 class="text-2xl font-bold text-gray-900">Bookmarker</h1>
+        <h1 class="text-2xl font-bold text-gray-900">
+          <router-link to="/"> Bookmarker </router-link>
+        </h1>
 
         <!-- Add Bookmark Button -->
         <router-link
