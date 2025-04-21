@@ -30,15 +30,12 @@ const handleTagClick = (tagName) => {
       </a>
     </h2>
     <p class="text-gray-600 text-sm mb-2">{{ bookmark.description }}</p>
-    <div
-      v-if="bookmark.tags && bookmark.tags.length > 0"
-      class="flex flex-wrap gap-1 mb-2"
-    >
+    <div class="flex flex-wrap gap-1 mb-2 min-h-[24px]">
       <button
         v-for="tag in bookmark.tags"
         :key="tag.id"
         @click="handleTagClick(tag.name)"
-        class="px-1.5 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full hover:bg-gray-200 transition-colors duration-200"
+        class="px-1.5 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full hover:bg-gray-200 transition-colors duration-200 cursor-pointer"
       >
         {{ tag.name }}
       </button>
