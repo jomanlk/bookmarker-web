@@ -12,7 +12,7 @@ defineProps({
 });
 
 const handleTagClick = (tagName) => {
-  router.push({ path: "/bookmarks/tag", query: { tag: tagName } });
+  router.push({ name: "TagBookmarks", params: { tag: tagName } });
 };
 </script>
 

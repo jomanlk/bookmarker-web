@@ -24,7 +24,7 @@ onMounted(fetchTags);
       <router-link
         v-for="tag in tags"
         :key="tag.id"
-        :to="{ name: 'TagBookmarks', query: { tag: tag.name } }"
+        :to="{ name: 'TagBookmarks', params: { tag: tag.name } }"
         class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors duration-200 cursor-pointer no-underline"
       >
         {{ tag.name }}
