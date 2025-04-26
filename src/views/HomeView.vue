@@ -19,6 +19,8 @@ function toggleSearch() {
     nextTick(() => {
       searchInputRef.value?.focus();
     });
+  } else {
+    searchQuery.value = "";
   }
 }
 
@@ -84,7 +86,10 @@ watch(searchQuery, loadBookmarks);
             type="text"
             placeholder="Search bookmarks..."
             class="w-full text-2xl font-bold px-2 py-2 rounded-lg border-2 border-gray-300 focus:border-primary-500 focus:outline-none shadow"
-            @keyup.esc="showSearch = false"
+            @keyup.esc="
+              showSearch = false;
+              searchQuery = '';
+            "
           />
         </transition>
       </div>
@@ -110,12 +115,12 @@ watch(searchQuery, loadBookmarks);
 .slide-fade-leave-to {
   max-height: 0;
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translate3d(0, -10px, 0);
 }
 .slide-fade-enter-to,
 .slide-fade-leave-from {
   max-height: 100px;
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 </style>
