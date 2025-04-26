@@ -4,6 +4,7 @@ import TagCloud from "../components/TagCloud.vue";
 import bookmarkService from "../services/bookmarkService";
 import { ref, watch, onMounted, onUnmounted, nextTick } from "vue";
 import searchService from "../services/searchService";
+import Pagination from "../components/Pagination.vue";
 
 const searchQuery = ref("");
 const listTitle = ref("My Bookmarks");
@@ -24,6 +25,25 @@ function toggleSearch() {
   }
 }
 
+const page = ref(1);
+const limit = 50;
+
+function nextPage() {
+  page.value++;
+  loadBookmarks();
+}
+
+function prevPage() {
+  if (page.value > 1) {
+    page.value--;
+    loadBookmarks();
+  }
+}
+
+function resetPage() {
+  page.value = 1;
+}
+
 async function loadBookmarks() {
   loading.value = true;
   if (searchQuery.value.length > 0) {
@@ -31,7 +51,7 @@ async function loadBookmarks() {
     bookmarks.value = await searchService.search(searchQuery.value);
   } else {
     listTitle.value = "My Bookmarks";
-    bookmarks.value = await bookmarkService.getBookmarks();
+    bookmarks.value = await bookmarkService.getBookmarks(page.value, limit);
   }
   loading.value = false;
 }
@@ -51,7 +71,10 @@ onMounted(() => {
   });
 });
 
-watch(searchQuery, loadBookmarks);
+watch(searchQuery, () => {
+  resetPage();
+  loadBookmarks();
+});
 </script>
 
 <template>
@@ -98,6 +121,18 @@ watch(searchQuery, loadBookmarks);
         :show-add-button="true"
         :bookmarks="bookmarks"
         :loading="loading"
+      />
+      <Pagination
+        v-if="!loading && searchQuery.length === 0"
+        :page="page"
+        :limit="limit"
+        :count="bookmarks.length"
+        @update:page="
+          (p) => {
+            page = p;
+            loadBookmarks();
+          }
+        "
       />
     </div>
     <div class="col-span-4 hidden md:block">

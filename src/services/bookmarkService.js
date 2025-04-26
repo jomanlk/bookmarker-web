@@ -3,14 +3,15 @@ import axios from "axios";
 const API_HOST = import.meta.env.VITE_API_HOST || "http://localhost:3000";
 
 const bookmarkService = {
-  async getBookmarks() {
-    // add in error handling
+  async getBookmarks(page = 1, limit = 50) {
     try {
-      const response = await axios.get(`${API_HOST}/bookmarks`);
+      const response = await axios.get(`${API_HOST}/bookmarks`, {
+        params: { page, limit },
+      });
       return response.data.bookmarks;
     } catch (error) {
       console.error("Error fetching bookmarks:", error);
-      throw error; // rethrow the error for further handling if needed
+      throw error;
     }
   },
 
@@ -32,10 +33,10 @@ const bookmarkService = {
     return response.data.bookmark;
   },
 
-  async searchByTag(tag) {
-    const response = await axios.get(
-      `${API_HOST}/bookmarks/tag?tag=${encodeURIComponent(tag)}`
-    );
+  async searchByTag(tag, page = 1, limit = 50) {
+    const response = await axios.get(`${API_HOST}/bookmarks/tag`, {
+      params: { tag, page, limit },
+    });
     return response.data.bookmarks;
   },
 
