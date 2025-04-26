@@ -21,10 +21,10 @@ const routes = [
     props: true,
   },
   {
-    path: "/bookmarks/tag",
+    path: "/bookmarks/tag/:tag",
     name: "TagBookmarks",
     component: () => import("../views/TagBookmarks.vue"),
-    props: (route) => ({ tag: route.query.tag }),
+    props: true,
   },
 ];
 

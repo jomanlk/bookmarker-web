@@ -5,7 +5,7 @@
 - The bookmark API allows me to store bookmarks. A bookmark consists of an id (auto generated), title, description, thumbnail, URL. Meta data in the form of created_at and updated_at are also there
 - This web application will allow you to create, search and manage my bookmarks
 - Separate concerns. Don't mix UI and API server calls. Vue view components should just manage the UI, have a service to communicate with the API
-
+- Use Axios for API requests
 - This is the API response given by the GET /bookmarks API endpoint, which returns a list of the saved bookmarks
 
 ```
