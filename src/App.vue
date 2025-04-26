@@ -1,5 +1,5 @@
 <script setup>
-import BookmarkList from "./components/BookmarkList.vue";
+import AppFooter from "./components/AppFooter.vue";
 import AppHeader from "./components/AppHeader.vue";
 </script>
 
@@ -9,5 +9,6 @@ import AppHeader from "./components/AppHeader.vue";
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <router-view />
     </div>
+    <AppFooter />
   </div>
 </template>
