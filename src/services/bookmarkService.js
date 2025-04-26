@@ -34,7 +34,7 @@ const bookmarkService = {
 
   async searchByTag(tag) {
     const response = await axios.get(
-      `${API_HOST}/search-by-tag?tag=${encodeURIComponent(tag)}`
+      `${API_HOST}/bookmarks/tag?tag=${encodeURIComponent(tag)}`
     );
     return response.data.bookmarks;
   },
