@@ -1,11 +1,9 @@
-import axios from "axios";
-
-const API_HOST = import.meta.env.VITE_API_HOST || "http://localhost:3000";
+import api from "./api";
 
 const bookmarkService = {
   async getBookmarks(page = 1, limit = 50) {
     try {
-      const response = await axios.get(`${API_HOST}/bookmarks`, {
+      const response = await api.get("/bookmarks", {
         params: { page, limit },
       });
       return response.data.bookmarks;
@@ -16,25 +14,22 @@ const bookmarkService = {
   },
 
   async createBookmark(bookmark) {
-    const response = await axios.post(`${API_HOST}/bookmarks`, bookmark);
+    const response = await api.post("/bookmarks", bookmark);
     return response.data;
   },
 
   async updateBookmark(bookmark) {
-    const response = await axios.patch(
-      `${API_HOST}/bookmarks/${bookmark.id}`,
-      bookmark
-    );
+    const response = await api.patch(`/bookmarks/${bookmark.id}`, bookmark);
     return response.data;
   },
 
   async getBookmark(id) {
-    const response = await axios.get(`${API_HOST}/bookmarks/${id}`);
+    const response = await api.get(`/bookmarks/${id}`);
     return response.data.bookmark;
   },
 
   async searchByTag(tag, page = 1, limit = 50) {
-    const response = await axios.get(`${API_HOST}/bookmarks/tag`, {
+    const response = await api.get("/bookmarks/tag", {
       params: { tag, page, limit },
     });
     return response.data.bookmarks;
