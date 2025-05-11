@@ -15,16 +15,29 @@ export const useAuthStore = defineStore("auth", {
       this.loading = true;
       this.error = null;
       try {
-        const response = await axios.get(`${API_HOST}/me`, {
-          withCredentials: true,
-        });
-        this.isAuthenticated = true;
-        this.user = response.data.user;
+        await this.fetchUser();
       } catch (e) {
-        this.isAuthenticated = false;
-        this.user = null;
+        if (e.response && e.response.status === 401) {
+          try {
+            await this.refresh();
+            await this.fetchUser();
+          } catch {
+            this.isAuthenticated = false;
+            this.user = null;
+          }
+        } else {
+          this.isAuthenticated = false;
+          this.user = null;
+        }
       }
       this.loading = false;
+    },
+    async fetchUser() {
+      const response = await axios.get(`${API_HOST}/me`, {
+        withCredentials: true,
+      });
+      this.isAuthenticated = true;
+      this.user = response.data.user;
     },
     async login(username, password) {
       this.loading = true;
