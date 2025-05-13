@@ -1,11 +1,9 @@
-import axios from "axios";
-
-const API_HOST = import.meta.env.VITE_API_HOST || "http://localhost:3000";
+import api from "./api";
 
 const tagService = {
   async getTags() {
     try {
-      const response = await axios.get(`${API_HOST}/tags`);
+      const response = await api.get("/tags");
       return response.data.tags;
     } catch (error) {
       console.error("Error fetching tags:", error);
