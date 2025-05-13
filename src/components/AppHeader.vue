@@ -4,20 +4,11 @@
       <div class="flex justify-between items-center h-16">
         <!-- Logo -->
         <router-link to="/" class="flex items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8 text-primary-600"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
-            />
-          </svg>
+          <img
+            src="@/assets/logo-icon.png"
+            alt="Bookmarker Logo"
+            class="h-8 w-8 object-contain"
+          />
         </router-link>
 
         <!-- App Name -->
