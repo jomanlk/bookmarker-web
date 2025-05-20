@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import BookmarkEdit from "../components/BookmarkEdit.vue";
 import BookmarkAdd from "../components/BookmarkAdd.vue";
+import BookmarkQuickAdd from "../components/BookmarkQuickAdd.vue";
 import { useAuthStore } from "../stores/auth";
 
 const routes = [
@@ -14,6 +15,11 @@ const routes = [
     path: "/bookmarks/add",
     name: "add-bookmark",
     component: BookmarkAdd,
+  },
+  {
+    path: "/bookmarks/quick-add",
+    name: "quick-add-bookmark",
+    component: BookmarkQuickAdd,
   },
   {
     path: "/bookmarks/:id/edit",
