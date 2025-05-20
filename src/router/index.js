@@ -38,6 +38,11 @@ const routes = [
     name: "login",
     component: () => import("../views/LoginView.vue"),
   },
+  {
+    path: "/get-bookmarklet",
+    name: "get-bookmarklet",
+    component: () => import("../views/GetBookmarklet.vue"),
+  },
 ];
 
 const router = createRouter({

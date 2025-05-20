@@ -100,9 +100,3 @@ const handleCreate = async () => {
   font-size: 1rem;
 }
 </style>
-
-<style>
-header {
-  display: none;
-}
-</style>
