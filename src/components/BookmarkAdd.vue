@@ -105,11 +105,16 @@ const handleFetchPreview = async () => {
               />
               <button
                 @click="handleFetchPreview"
-                class="ml-2 px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center"
+                class="ml-2 px-3 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center"
                 :disabled="loadingPreview"
                 aria-label="Fetch URL Details"
+                style="width: 40px; min-width: 40px; min-height: 40px"
               >
-                <span v-if="loadingPreview" class="loader"></span>
+                <span
+                  v-if="loadingPreview"
+                  class="loader"
+                  style="width: 20px; height: 20px"
+                ></span>
                 <svg
                   v-else
                   xmlns="http://www.w3.org/2000/svg"
@@ -117,6 +122,12 @@ const handleFetchPreview = async () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  style="
+                    width: 20px;
+                    height: 20px;
+                    display: block;
+                    margin: auto;
+                  "
                 >
                   <path
                     stroke-linecap="round"
@@ -167,7 +178,8 @@ const handleFetchPreview = async () => {
             <img
               :src="newBookmark.thumbnail"
               alt="Thumbnail preview"
-              class="max-w-xs w-full h-auto object-contain rounded border"
+              class="max-w-xs p-2 w-full h-auto object-contain rounded border"
+              style="max-height: 90px; max-width: 90px"
             />
           </div>
           <div class="flex justify-end space-x-3 pt-6 border-t">
