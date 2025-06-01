@@ -10,8 +10,10 @@ const newBookmark = ref({
   url: "",
   description: "",
   tags: [],
+  image: "", // Add image field for thumbnail
 });
 const error = ref(null);
+const loadingPreview = ref(false);
 
 // Helper to get URL params
 function getParam(name) {
@@ -43,6 +45,28 @@ const handleCreate = async () => {
     console.error(err);
   }
 };
+
+const handleFetchPreview = async () => {
+  if (!newBookmark.value.url) {
+    error.value = "Enter a URL first";
+    return;
+  }
+  error.value = null;
+  loadingPreview.value = true;
+  try {
+    const preview = await bookmarkService.fetchUrlPreview(
+      newBookmark.value.url
+    );
+    newBookmark.value.title = preview.title || newBookmark.value.title;
+    newBookmark.value.description =
+      preview.description || newBookmark.value.description;
+    newBookmark.value.image = preview.image || "";
+  } catch (err) {
+    error.value = "Could not fetch URL details";
+  } finally {
+    loadingPreview.value = false;
+  }
+};
 </script>
 
 <template>
@@ -66,11 +90,30 @@ const handleCreate = async () => {
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700">URL *</label>
-          <input
-            v-model="newBookmark.url"
-            type="url"
-            class="input w-full px-3 py-2"
+          <div class="flex items-center space-x-2">
+            <input
+              v-model="newBookmark.url"
+              type="url"
+              class="input w-full px-3 py-2"
+            />
+            <button
+              type="button"
+              class="btn btn-secondary px-3 py-2"
+              @click="handleFetchPreview"
+              :disabled="loadingPreview"
+            >
+              <span v-if="loadingPreview">Fetching...</span>
+              <span v-else>Fetch URL Details</span>
+            </button>
+          </div>
+        </div>
+        <div v-if="newBookmark.image" class="mb-2 flex items-center">
+          <img
+            :src="newBookmark.image"
+            alt="Preview"
+            class="w-12 h-12 rounded mr-2 border"
           />
+          <span class="text-xs text-gray-500">Preview image</span>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700"
