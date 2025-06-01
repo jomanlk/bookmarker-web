@@ -36,6 +36,11 @@ const bookmarkService = {
   },
 
   // Additional methods for updating and deleting bookmarks can be added here
+
+  async fetchUrlPreview(url) {
+    const response = await api.get("/url/preview", { params: { url } });
+    return response.data;
+  },
 };
 
 export default bookmarkService;
