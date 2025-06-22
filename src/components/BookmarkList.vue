@@ -53,6 +53,7 @@ const emits = defineEmits(["add-bookmark"]);
           v-for="bookmark in bookmarks"
           :key="bookmark.id"
           :bookmark="bookmark"
+          @deleted="$emit('refresh')"
         />
       </div>
     </div>

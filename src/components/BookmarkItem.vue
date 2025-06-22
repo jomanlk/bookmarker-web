@@ -1,18 +1,35 @@
 <script setup>
 import { format } from "timeago.js";
 import { useRouter } from "vue-router";
+import bookmarkService from "../services/bookmarkService";
+import { ref } from "vue";
 
 const router = useRouter();
+const emit = defineEmits(["deleted"]);
 
-defineProps({
+const props = defineProps({
   bookmark: {
     type: Object,
     required: true,
   },
 });
 
+const deleting = ref(false);
 const handleTagClick = (tagName) => {
   router.push({ name: "TagBookmarks", params: { tag: tagName } });
+};
+
+const handleDelete = async () => {
+  if (!confirm("Delete this bookmark?")) return;
+  deleting.value = true;
+  try {
+    await bookmarkService.deleteBookmark(props.bookmark.id);
+    emit("deleted", props.bookmark.id);
+  } catch (e) {
+    alert("Failed to delete bookmark");
+  } finally {
+    deleting.value = false;
+  }
 };
 </script>
 
@@ -30,7 +47,9 @@ const handleTagClick = (tagName) => {
           {{ bookmark.title }}
         </a>
       </h2>
-      <p class="text-gray-600 text-sm mb-2">{{ bookmark.description }}</p>
+      <p class="text-gray-600 text-sm mb-2">
+        {{ bookmark.description || bookmark.title }}
+      </p>
       <div class="flex flex-wrap gap-1 mb-2 min-h-[24px]">
         <button
           v-for="tag in bookmark.tags || []"
@@ -45,18 +64,28 @@ const handleTagClick = (tagName) => {
         Added {{ format(bookmark.created_at) }}
       </div>
 
-      <router-link
-        :to="`/bookmarks/${bookmark.id}/edit`"
-        class="absolute bottom-2 right-2 transition-opacity duration-200 p-1.5 rounded text-gray-300 hover:text-gray-800 text-xs font-medium"
-      >
-        (edit)
-      </router-link>
+      <div class="absolute bottom-2 right-2 flex gap-2">
+        <router-link
+          :to="`/bookmarks/${bookmark.id}/edit`"
+          class="transition-opacity duration-200 p-1.5 rounded text-gray-300 hover:text-gray-800 text-xs font-medium"
+        >
+          (edit)
+        </router-link>
+
+        <button
+          @click="handleDelete"
+          :disabled="deleting"
+          class="cursor-pointer transition-opacity duration-200 p-1.5 rounded text-gray-300 hover:text-red-600 text-xs font-medium"
+        >
+          (delete)
+        </button>
+      </div>
     </div>
     <div v-if="bookmark.thumbnail" class="ml-4 flex-shrink-0">
       <img
         :src="bookmark.thumbnail"
         :alt="bookmark.title + ' thumbnail'"
-        class="w-[100px] h-auto object-cover rounded-md border min-h-[50px] bg-gray-100"
+        class="w-[100px] h-auto object-cover rounded-md border min-h-[50px] max-h-[80px] bg-gray-100"
       />
     </div>
   </div>

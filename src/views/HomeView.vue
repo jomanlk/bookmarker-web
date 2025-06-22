@@ -121,6 +121,7 @@ watch(searchQuery, () => {
         :show-add-button="true"
         :bookmarks="bookmarks"
         :loading="loading"
+        @refresh="loadBookmarks"
       />
       <Pagination
         v-if="!loading && searchQuery.length === 0"

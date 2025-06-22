@@ -37,6 +37,11 @@ const bookmarkService = {
 
   // Additional methods for updating and deleting bookmarks can be added here
 
+  async deleteBookmark(id) {
+    const response = await api.delete(`/bookmarks/${id}`);
+    return response.data;
+  },
+
   async fetchUrlPreview(url) {
     const response = await api.get("/url/preview", { params: { url } });
     return response.data;

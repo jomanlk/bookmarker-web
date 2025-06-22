@@ -52,6 +52,7 @@ watch(tagName, () => {
         :show-add-button="false"
         :bookmarks="bookmarks"
         :loading="loading"
+        @refresh="loadBookmarks"
       />
       <Pagination
         v-if="!loading"
