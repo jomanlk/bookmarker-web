@@ -43,7 +43,7 @@ const emits = defineEmits(["add-bookmark"]);
 
       <div
         v-else-if="bookmarks.length === 0"
-        class="text-center p-8 bg-gray-50 text-gray-500 rounded-lg"
+        class="text-center p-8 text-gray-500 rounded-lg"
       >
         No bookmarks found
       </div>
@@ -53,6 +53,7 @@ const emits = defineEmits(["add-bookmark"]);
           v-for="bookmark in bookmarks"
           :key="bookmark.id"
           :bookmark="bookmark"
+          @deleted="$emit('refresh')"
         />
       </div>
     </div>

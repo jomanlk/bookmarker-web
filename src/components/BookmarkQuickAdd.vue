@@ -70,7 +70,7 @@ const handleFetchPreview = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div class="min-h-screen flex items-center justify-center">
     <div class="w-full max-w-xl bg-white rounded-lg shadow p-6">
       <h2 class="text-xl font-semibold mb-4">Quick Add Bookmark</h2>
       <div

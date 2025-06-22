@@ -90,7 +90,7 @@ watch(
       :class="{ 'ring-2 ring-primary-500 border-primary-500': isFocused }"
     >
       <div
-        v-for="tag in modelValue"
+        v-for="tag in modelValue || []"
         :key="tag.name"
         class="flex items-center gap-1 px-2 py-1 bg-gray-100 rounded-full"
       >
@@ -153,7 +153,7 @@ watch(
     </div>
     <div class="flex justify-between text-xs text-gray-500">
       <p>Press Enter or comma to add a tag</p>
-      <p>{{ modelValue.length }}/{{ maxTags }} tags</p>
+      <p>{{ (modelValue || []).length }}/{{ maxTags }} tags</p>
     </div>
   </div>
 </template>

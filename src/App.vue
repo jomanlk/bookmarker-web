@@ -9,9 +9,11 @@ const showHeader = computed(() => route.path !== "/bookmarks/quick-add");
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-100">
     <AppHeader v-if="showHeader" />
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 mt-1 lg:px-8">
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 mt-1 lg:px-8 -mt-16 sm:mt-0 sm:pt-16"
+    >
       <router-view />
     </div>
     <AppFooter />
