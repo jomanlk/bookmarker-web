@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-white shadow-sm">
+  <header class="fixed top-0 left-0 w-full bg-white shadow-sm h-16 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <!-- Logo -->
@@ -12,7 +12,7 @@
         </router-link>
 
         <!-- App Name -->
-        <h1 class="text-2xl font-bold text-gray-900">
+        <h1 class="text-2xl font-bold text-gray-900 hidden sm:block">
           <router-link to="/"> Bookmarker </router-link>
         </h1>
 

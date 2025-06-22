@@ -33,7 +33,7 @@ const handleTagClick = (tagName) => {
       <p class="text-gray-600 text-sm mb-2">{{ bookmark.description }}</p>
       <div class="flex flex-wrap gap-1 mb-2 min-h-[24px]">
         <button
-          v-for="tag in bookmark.tags"
+          v-for="tag in bookmark.tags || []"
           :key="tag.id"
           @click="handleTagClick(tag.name)"
           class="px-1.5 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full hover:bg-gray-200 transition-colors duration-200 cursor-pointer"
@@ -42,26 +42,14 @@ const handleTagClick = (tagName) => {
         </button>
       </div>
       <div class="text-xs text-gray-500">
-        Added {{ format(bookmark.created_at * 1000) }}
+        Added {{ format(bookmark.created_at) }}
       </div>
+
       <router-link
         :to="`/bookmarks/${bookmark.id}/edit`"
-        class="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-1.5 rounded-full hover:bg-gray-100"
+        class="absolute bottom-2 right-2 transition-opacity duration-200 p-1.5 rounded text-gray-300 hover:text-gray-800 text-xs font-medium"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5 text-gray-500"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-          />
-        </svg>
+        (edit)
       </router-link>
     </div>
     <div v-if="bookmark.thumbnail" class="ml-4 flex-shrink-0">

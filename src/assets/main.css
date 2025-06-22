@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@custom-variant hover (&:hover);
+
 @layer base {
   html {
     @apply antialiased;
@@ -33,5 +35,12 @@
 
   .input {
     @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  }
+
+  .modal {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black;
+  }
+  .modal-content {
+    @apply bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto relative;
   }
 }

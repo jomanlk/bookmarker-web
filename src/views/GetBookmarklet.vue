@@ -1,5 +1,5 @@
 <template>
-  <div class="m-5 flex items-center justify-center bg-gray-50">
+  <div class="m-5 flex items-center justify-center">
     <div class="w-full max-w-lg bg-white rounded-lg shadow p-8">
       <h1 class="text-2xl font-bold mb-4">Get the Bookmarker Bookmarklet</h1>
       <p class="mb-4 text-gray-700">
